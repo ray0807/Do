@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:padding="10dp"
+    android:background="#01BCD6">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/fb_imageview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        fresco:roundAsCircle="true"
+        android:layout_gravity="center"
+        fresco:roundingBorderWidth="5dp"
+        android:layout_marginTop="10dp"
+        fresco:roundedCornerRadius="180dp"
+        fresco:roundingBorderColor="@color/primary_light"/>
+
+   <!-- <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/dog"/>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="Big Dog"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
