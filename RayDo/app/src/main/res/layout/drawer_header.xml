@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:padding="10dp"
-    android:background="#01BCD6">
+    android:background="@color/primary">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/fb_imageview"
@@ -27,6 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/primary_light"
         android:textSize="24sp"
         android:text="Big Dog"
         android:layout_marginTop="10dp"/>
