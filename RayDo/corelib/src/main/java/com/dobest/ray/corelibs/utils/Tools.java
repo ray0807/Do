@@ -199,14 +199,14 @@ public class Tools {
 	/**
 	 * 检验用户名 可以输入a到z 0到9 汉字的3到8位字符
 	 * 
-	 * @param pwd
+	 * @param userName
 	 * @return
 	 */
-	public static boolean validateUserName(String pwd) {
-		if (isNull(pwd))
+	public static boolean validateUserName(String userName) {
+		if (isNull(userName))
 			return false;
 		String pattern = "[a-zA-Z0-9\u4E00-\u9FA5]{3,8}";
-		return pwd.matches(pattern);
+		return userName.matches(pattern);
 
 	}
 

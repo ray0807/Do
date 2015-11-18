@@ -15,6 +15,11 @@ import android.widget.Toast;
 @SuppressLint("ShowToast")
 public class ToastMgr {
 	private static Toast it;
+	private static Context mContext;
+	
+	public static Context getContext() {
+		return mContext;
+	}
 
 	private ToastMgr() {}
 	
@@ -23,8 +28,9 @@ public class ToastMgr {
 	 * @param _context ������
 	 */
 	public static void init(Context _context) {
-		View v = Toast.makeText(_context, "", Toast.LENGTH_SHORT).getView();
-        init(_context, v);
+		mContext = _context;
+		View v = Toast.makeText(mContext, "", Toast.LENGTH_SHORT).getView();
+        init(mContext, v);
 	}
 	
 	/**

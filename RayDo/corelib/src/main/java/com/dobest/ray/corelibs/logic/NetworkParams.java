@@ -161,7 +161,7 @@ public class NetworkParams<T> {
 	 * 设置token
 	 * @author ZhuFan
 	 * @Package com.bm.corelibs.logic
-	 * @return 
+	 * @return
 	 * @return NetworkParams<T>
 	 * @throws 
 	 * @Date 2015-6-1 下午3:37:58
@@ -188,7 +188,7 @@ public class NetworkParams<T> {
 	 * 设置网络地址
 	 * @author ZhuFan
 	 * @Package com.bm.corelibs.logic
-	 * @return 
+	 * @return
 	 * @return NetworkParams<T>
 	 * @throws 
 	 * @Date 2015-6-1 下午3:37:58

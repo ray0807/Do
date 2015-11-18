@@ -3,15 +3,19 @@ package com.dobest.ray.raydo.activity;
 import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.dobest.ray.raydo.R;
@@ -31,8 +35,10 @@ public class MainActivity extends BaseActivity {
     private SimpleDraweeView fb_imageview1;
     private SimpleDraweeView fb_imageview2;
     private SimpleDraweeView fb_imageview3;
+    private DrawerLayout drawer_layout;
     private LinearLayout drawer_header;
     private NavigationView navigation_view;
+    private ActionBarDrawerToggle mActionBarDrawerToggle;
 
     private static final  String ImageUrl="http://www.woaipet.cn/data/attachment/forum/201410/14/210843up0lgb2g2l3psbis.jpg.thumb.jpg";
     private static final  String ImageUrl1="http://img5.imgtn.bdimg.com/it/u=3368709273,2917712832&fm=21&gp=0.jpg";
@@ -52,9 +58,9 @@ public class MainActivity extends BaseActivity {
     public void findViews() {
         toolbar=(Toolbar) this.findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(android.R.drawable.ic_input_delete);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setHomeAsUpIndicator(android.R.drawable.ic_input_delete);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle("Big Dog");
@@ -67,12 +73,15 @@ public class MainActivity extends BaseActivity {
         fb_imageview1= (SimpleDraweeView) findViewById(R.id.fb_imageview1);
         fb_imageview2= (SimpleDraweeView) findViewById(R.id.fb_imageview2);
         fb_imageview3= (SimpleDraweeView) findViewById(R.id.fb_imageview3);
-
+        drawer_layout= (DrawerLayout) findViewById(R.id.drawer_layout);
 
     }
 
     public void init() {
-
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                drawer_layout, toolbar, R.string.open,  R.string.close);
+        mActionBarDrawerToggle.syncState();
+        drawer_layout.setDrawerListener(mActionBarDrawerToggle);
 
 
         mSimpleDraweeView.setImageURI(Uri.parse(ImageUrl));
@@ -82,18 +91,13 @@ public class MainActivity extends BaseActivity {
         fb_imageview1.setAspectRatio(1f);
         fb_imageview2.setAspectRatio(1f);
 
-
         //显示一张HTTP的GIF图片
         DraweeController draweeController1 = Fresco.newDraweeControllerBuilder().setUri(Uri.parse(ImageUrl3))
                 .setAutoPlayAnimations(true).build();
         fb_imageview3.setController(draweeController1);
-        Log.i("wanglei", "width:" + fb_imageview3.getDrawable().getIntrinsicWidth());
-        Log.i("wanglei", "height:" + fb_imageview3.getDrawable().getIntrinsicHeight());
-
         fb_imageview3.setAspectRatio(1f);
     }
 
     public void addListeners() {
-
     }
 }

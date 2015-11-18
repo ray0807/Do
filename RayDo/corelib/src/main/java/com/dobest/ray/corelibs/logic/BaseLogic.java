@@ -1,9 +1,7 @@
 package com.dobest.ray.corelibs.logic;
 
-import android.util.Log;
 
 import com.android.volley.VolleyError;
-import com.dobest.ray.corelibs.Configuration;
 import com.dobest.ray.corelibs.http.HttpVolleyRequest;
 
 /**
@@ -62,10 +60,6 @@ public class BaseLogic<T> {
 		} else {
 			HttpVolleyRequest<T> request = new HttpVolleyRequest<T>();
 			request.HttpVolleyRequestPost(params.getUrl(), params.getParams(), params.getBaseClass(), params.getChildClass(), params.getListener(), params.getToken());
-			if(Configuration.isShowNetworkParams()){
-				Log.e("URL", params.getUrl());
-				Log.e("params", params.getParams().toString());
-			}
 		}
 	}
 	

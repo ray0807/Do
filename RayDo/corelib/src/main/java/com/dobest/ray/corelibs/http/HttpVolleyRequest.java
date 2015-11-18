@@ -2,16 +2,15 @@ package com.dobest.ray.corelibs.http;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import android.app.Activity;
-import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.dobest.ray.corelibs.logic.BaseLogic;
+import com.dobest.ray.corelibs.utils.ToastMgr;
 
 public class HttpVolleyRequest<T> {
 
@@ -65,6 +64,7 @@ public class HttpVolleyRequest<T> {
 	 *            子类数据结构
 	 * @param listener
 	 *            成功监听
+	 *            错误监听
 	 */
 	public void HttpVolleyRequestGet(String url, Class<T> parentClass,
 			Class<?> class1, BaseLogic.NListener<T> listener) {
@@ -72,6 +72,7 @@ public class HttpVolleyRequest<T> {
 		GsonRequest<T> request = new GsonRequest<T>(Method.GET, url,
 				parentClass, class1, SuccessListener(), ErrorListener());
 		RequestManager.getRequestQueue().add(request);
+		
 		mListener = listener;
 //		this.urlKey = url;
 //		this.method = Method.GET;
@@ -102,23 +103,15 @@ public class HttpVolleyRequest<T> {
 	 *            子类数据结构
 	 * @param listener
 	 *            成功监听
-	 *            错误监听
 	 */
 	public void HttpVolleyRequestPost(String url,
 			HashMap<String, String> params, Class<T> parentClass,
 			Class<?> class1, BaseLogic.NListener<T> listener, String token) {
-		FakeX509TrustManager.allowAllSSL();
 		GsonRequest<T> request = new GsonRequest<T>(Method.POST, url, params,
 				parentClass, class1, SuccessListener(), ErrorListener());
-		
-		if(token != null && token.length() > 0) {
-			Map<String, String> headers = new HashMap<String, String>();
-			headers.put("Authorization", "Bearer " + token);
-			request.setHeader(headers);
-		}
 
 		RequestManager.getRequestQueue().add(request);
-
+		
 		mListener = listener;
 //		this.urlKey = url;
 //		this.method = Method.POST;
@@ -202,13 +195,7 @@ public class HttpVolleyRequest<T> {
 
 			@Override
 			public void onErrorResponse(VolleyError error) {
-				if (mAct != null) {
-					// toast显示错误信息
-					Toast.makeText(mAct,
-							VolleyErrorHelper.getMessage(error, mAct),
-							Toast.LENGTH_SHORT).show();
-				}
-
+				ToastMgr.show(VolleyErrorHelper.getMessage(error, ToastMgr.getContext()));
 				if (mListener != null)
 					mListener.onErrResponse(error);
 			}

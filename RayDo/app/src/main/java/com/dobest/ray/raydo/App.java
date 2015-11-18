@@ -1,7 +1,6 @@
 package com.dobest.ray.raydo;
 
 import java.io.File;
-import java.util.Map;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -210,7 +209,7 @@ public class App extends Application {
 		}
 		// Before Froyo we need to construct the external cache dir ourselves
 		// 2.2以前我们需要自己构造
-		final String cacheDir = "/Android/data/" + "xbrc" + "/cache/";
+		final String cacheDir = "/Android/data/" + Paths.ApkCache + "/cache/";
 		return Environment.getExternalStorageDirectory().getPath() + cacheDir;
 	}
 

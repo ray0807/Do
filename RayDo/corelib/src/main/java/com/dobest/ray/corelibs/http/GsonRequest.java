@@ -6,25 +6,23 @@ import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.Map;
 
-import org.json.JSONObject;
-
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonRequest;
 import com.dobest.ray.corelibs.Configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class GsonRequest<T> extends JsonRequest<T> {
+public class GsonRequest<T> extends Request<T> {
 
 	/**
 	 * Gson parser
@@ -42,9 +40,10 @@ public class GsonRequest<T> extends JsonRequest<T> {
 	 * Callback for response delivery
 	 */
 	private final Listener<T> mListener;
+	
+	private String url;
 
 	private Map<String, String> param = null;
-	private Map<String, String> headers;
 
 	/**
 	 * @param method
@@ -60,7 +59,8 @@ public class GsonRequest<T> extends JsonRequest<T> {
 	 */
 	public GsonRequest(int method, String url, Class<T> parentClass, Class<?> objectClass, Listener<T> listener, ErrorListener errorListener) {
 
-		super(method, url, "", listener, errorListener);
+		super(method, url, errorListener);
+		this.url = url;
 		this.parentClass = parentClass;
 		this.mClass = objectClass;
 		this.mListener = listener;
@@ -69,7 +69,8 @@ public class GsonRequest<T> extends JsonRequest<T> {
 
 	public GsonRequest(int method, String url, Map<String, String> params, Class<T> parentClass, Class<?> class1, Listener<T> listener, ErrorListener errorListener) {
 
-		super(method, url, new JSONObject(params).toString(), listener, errorListener);
+		super(method, url, errorListener);
+		this.url = url;
 		this.param = params;
 		this.parentClass = parentClass;
 		this.mClass = class1;
@@ -79,21 +80,13 @@ public class GsonRequest<T> extends JsonRequest<T> {
 
 	public GsonRequest(int method, String url, String params, Class<T> parentClass, Class<?> class1, Listener<T> listener, ErrorListener errorListener) {
 
-		super(method, url, params, listener, errorListener);
+		super(method, url, errorListener);
+		this.url = url;
 		this.parentClass = parentClass;
 		this.mClass = class1;
 		this.mListener = listener;
 		setTimeOut();
 
-	}
-	
-	public void setHeader(Map<String, String> headers){
-		this.headers = headers;
-	}
-
-	@Override
-	public Map<String, String> getHeaders() throws AuthFailureError {
-		return headers == null ? super.getHeaders() : headers;
 	}
 
 	// 30秒超时，最大请求次数为1
@@ -101,10 +94,14 @@ public class GsonRequest<T> extends JsonRequest<T> {
 		setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 3, 1.0f));
 	}
 
-	// @Override
-	// protected Map<String, String> getParams() throws AuthFailureError {
-	// return param;
-	// }
+	@Override
+	protected Map<String, String> getParams() throws AuthFailureError {
+		if(Configuration.isShowNetworkParams()){
+			Log.e("URL", url);
+			Log.e("params", param.toString());
+		}
+		return param;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -115,6 +112,7 @@ public class GsonRequest<T> extends JsonRequest<T> {
 			if (Configuration.isShowNetworkJson())
 				Log.e("result", json);
 		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 			return Response.error(new ParseError(e));
 		}
 		Type objectType;

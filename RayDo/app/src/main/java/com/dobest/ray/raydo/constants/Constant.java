@@ -5,7 +5,7 @@ public class Constant {
 
 	public final static String IS_FIRST_KEY = "IS_FIRST_KEY";// 1表示不是第一次进入应用
 
-	public final static String SP = "XBRC";
+	public final static String SP = "DoBest";
 
 	public final static String HasLogin = "logined";
 	public final static String LOGIN_TYPE = "loginedtype";
