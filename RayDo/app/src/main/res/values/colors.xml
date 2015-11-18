@@ -11,9 +11,8 @@
 
     <color name="window_background">#FFF5F5F5</color>
     <color name="tab_bgcolor">#eeeeee</color>
-
+    <color name="colorPrimary">#ff213C6B</color>
+    <color name="colorPrimaryDark">#ff162949</color>
 
     <!-- colors -->
-    <color name="primary">#785447</color>
-    <color name="primaryDark">#5B3F36</color>
 </resources>

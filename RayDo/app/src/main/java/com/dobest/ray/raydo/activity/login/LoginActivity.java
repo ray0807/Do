@@ -1,4 +1,4 @@
-package com.dobest.ray.raydo.activity;
+package com.dobest.ray.raydo.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.VolleyError;
@@ -14,10 +13,14 @@ import com.dobest.ray.corelibs.logic.BaseLogic;
 import com.dobest.ray.corelibs.utils.ToastMgr;
 import com.dobest.ray.corelibs.utils.Tools;
 import com.dobest.ray.raydo.R;
+import com.dobest.ray.raydo.activity.BaseActivity;
+import com.dobest.ray.raydo.activity.MainActivity;
 import com.dobest.ray.raydo.bean.BaseData;
+import com.dobest.ray.raydo.bean.childBean.LoginAccount;
 import com.dobest.ray.raydo.bean.childBean.LoginBean;
-import com.dobest.ray.raydo.logic.baseLogic.HotNewsManager;
 import com.dobest.ray.raydo.logicCache.cacheBaseLogic.LoginManager;
+
+import carbon.widget.Button;
 
 /**
  * Created by wangl01 on 2015/11/13.
@@ -31,6 +34,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private Button btn_reg;
     private LoginManager manager;
     private LoginBean bean;
+    private LoginAccount Accounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +90,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        manager.doLogin(this,this);
+
         Intent it = null;
         switch (v.getId()) {
             case R.id.btn_login:
@@ -94,7 +98,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 bean.password = et_password.getText().toString().trim();
                 if (Tools.validatePhone(bean.name)) {
                     if (Tools.validateLoginPassWord(bean.password)) {
-//                        manager.doLogin(this,bean.name,bean.password,this);
+                        loadingDialog.show();
+                        manager.doLogin(this,bean.name,bean.password,this);
                     } else {
                         ToastMgr.show("请填写有效密码");
                     }
@@ -105,7 +110,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                 break;
             case R.id.btn_reg:
-                showToast("不用注册了，账号是 15971470520 ，密码是：111111");
+                it =new Intent(this,RegisterActivity.class);
                 break;
 
         }
@@ -117,16 +122,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onResponse(BaseData data) {
-
+        if (data.errorCode==0){
+            Accounts=data.result.Accounts;
+            if (Accounts!=null){
+                Intent it =new Intent(LoginActivity.this,MainActivity.class);
+                jumpActivity(it);
+            }
+        }else{
+            ToastMgr.show(data.msg);
+        }
+        loadingDialog.dismiss();
     }
+
+
 
     @Override
     public void onErrResponse(VolleyError error) {
-
+        loadingDialog.dismiss();
     }
 
     @Override
     public void onAllPageLoaded(int nowPage, int totalPage) {
 
+    }
+
+    private void jumpActivity(Intent it) {
+        if (it!=null){
+            startActivity(it);
+        }
     }
 }

@@ -1,11 +1,28 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item>
+    <!-- Base application theme.  parent="Theme.AppCompat.Light.NoActionBar"-->
+    <style name="AppTheme" parent="carbon_Theme.Light">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">#ff213C6B</item>
+        <item name="colorPrimaryDark">#ff162949</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="AppTheme.Debug">
+        <item name="carbon_debugMode">true</item>
+    </style>
 
+    <style name="calcButtonStyle" parent="carbon_Button.Flat">
+        <item name="carbon_rippleColor">#42ffffff</item>
+        <item name="carbon_rippleStyle">borderless</item>
+        <item name="carbon_rippleHotspot">false</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">30sp</item>
+        <item name="carbon_fontPath">"carbon/Roboto-Light.ttf"</item>
+    </style>
+
+    <style name="calcButtonStyle2" parent="calcButtonStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="carbon_fontPath">"carbon/Roboto-Regular.ttf"</item>
+    </style>
 </resources>

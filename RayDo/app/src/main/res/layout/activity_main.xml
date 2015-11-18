@@ -27,7 +27,6 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
-
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
@@ -65,9 +64,11 @@
                     android:layout_margin="15dp"
                     app:cardCornerRadius="8dp">
 
-                    <TextView
+                    <carbon.widget.TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="?attr/carbon_textAppearance_body2"
+                        android:textColor="@drawable/red_black_selector"
                         android:text="【上善若水 https://github.com/ray0807 转载烦请注明出处，尊重分享成果】"
                         android:textSize="18sp" />
 
@@ -116,12 +117,14 @@
                         fresco:actualImageScaleType="fitCenter"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center" />
-                    <TextView
+                    <carbon.widget.TextView
                         android:layout_width="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_margin="3dp"
+                        android:textAppearance="?attr/carbon_textAppearance_body2"
+                        android:textColor="@drawable/red_black_selector"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/accent"
+                        android:textSize="18sp"
                         android:text="看什么看，这货这么肥还跟老子抢吃的，管不管！"/>
 
                 </android.support.v7.widget.CardView>
@@ -132,9 +135,11 @@
                     android:layout_margin="15dp"
                     app:cardCornerRadius="8dp">
 
-                    <TextView
+                    <carbon.widget.TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="?attr/carbon_textAppearance_body2"
+                        android:textColor="@drawable/red_black_selector"
                         android:text="【上善若水 https://github.com/ray0807 转载烦请注明出处，尊重分享成果】"
                         android:textSize="18sp" />
 
@@ -168,12 +173,12 @@
             app:layout_anchorGravity="bottom|right|end" />
     </android.support.design.widget.CoordinatorLayout>
 
-    <!-- app:headerLayout="@layout/drawer_header"-->
+    <!-- app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/menu_drawer"-->
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-
-        app:menu="@menu/menu_drawer" />
+ />
 </android.support.v4.widget.DrawerLayout>

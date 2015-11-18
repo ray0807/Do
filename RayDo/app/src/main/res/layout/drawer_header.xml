@@ -1,35 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
     android:gravity="center_horizontal"
-    android:padding="10dp"
-    android:background="@color/primary">
+    android:orientation="vertical"
+    app:carbon_insetColor="?attr/colorPrimary">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/fb_imageview"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        fresco:roundAsCircle="true"
-        android:layout_gravity="center"
-        fresco:roundingBorderWidth="5dp"
-        android:layout_marginTop="10dp"
-        fresco:roundedCornerRadius="180dp"
-        fresco:roundingBorderColor="@color/primary_light"/>
-
-   <!-- <ImageView
-        android:layout_width="wrap_content"
+    <carbon.widget.LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/dog"/>-->
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/fb_imageview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            fresco:roundAsCircle="true"
+            fresco:roundedCornerRadius="180dp"
+            fresco:roundingBorderColor="@color/white"
+            fresco:roundingBorderWidth="2dp" />
+
+        <!-- <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@mipmap/dog"/>-->
+
+        <carbon.widget.TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="Big Dog"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textAppearance="?attr/carbon_textAppearance_body2"
+            app:carbon_elevation="2dp" />
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.Divider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <carbon.widget.LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/primary_light"
-        android:textSize="24sp"
-        android:text="Big Dog"
-        android:layout_marginTop="10dp"/>
+        android:clickable="true"
+        app:carbon_rippleColor="?attr/carbon_rippleColor">
 
-</LinearLayout>
+        <carbon.widget.SVGView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            app:carbon_filterColor="@drawable/red_black_selector"
+            app:carbon_src="@raw/ic_description_24px" />
+
+        <carbon.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginLeft="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:text="文章"
+            android:textAppearance="?attr/carbon_textAppearance_body2"
+            android:textColor="@drawable/red_black_selector" />
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.Divider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <carbon.widget.LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:carbon_rippleColor="?attr/carbon_rippleColor">
+
+        <carbon.widget.SVGView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            app:carbon_filterColor="@drawable/red_black_selector"
+            app:carbon_src="@raw/ic_dns_24px" />
+
+        <carbon.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginLeft="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:text="DNS"
+            android:textAppearance="?attr/carbon_textAppearance_body2"
+            android:textColor="@drawable/red_black_selector" />
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.Divider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <carbon.widget.LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:carbon_rippleColor="?attr/carbon_rippleColor">
+
+        <carbon.widget.SVGView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            app:carbon_filterColor="@drawable/red_black_selector"
+            app:carbon_src="@raw/ic_face_24px" />
+
+        <carbon.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginLeft="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:text="笑脸"
+            android:textAppearance="?attr/carbon_textAppearance_body2"
+            android:textColor="@drawable/red_black_selector" />
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.Divider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <carbon.widget.LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:carbon_rippleColor="?attr/carbon_rippleColor">
+
+        <carbon.widget.SVGView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            app:carbon_filterColor="@drawable/red_black_selector"
+            app:carbon_src="@raw/ic_print_24px" />
+
+        <carbon.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginLeft="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:text="打印机"
+            android:textAppearance="?attr/carbon_textAppearance_body2"
+            android:textColor="@drawable/red_black_selector" />
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.Divider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <carbon.widget.LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:carbon_rippleColor="?attr/carbon_rippleColor">
+
+        <carbon.widget.SVGView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            app:carbon_filterColor="@drawable/red_black_selector"
+            app:carbon_src="@raw/ic_settings_input_svideo_24px" />
+
+        <carbon.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginLeft="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:text="影像"
+            android:textAppearance="?attr/carbon_textAppearance_body2"
+            android:textColor="@drawable/red_black_selector" />
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.Divider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <carbon.widget.LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:carbon_rippleColor="?attr/carbon_rippleColor">
+
+        <carbon.widget.SVGView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            app:carbon_filterColor="@drawable/red_black_selector"
+            app:carbon_src="@raw/ic_today_24px" />
+
+        <carbon.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginLeft="@dimen/carbon_padding"
+            android:duplicateParentState="true"
+            android:gravity="center_vertical"
+            android:text="press me"
+            android:textAppearance="?attr/carbon_textAppearance_body2"
+            android:textColor="@drawable/red_black_selector" />
+    </carbon.widget.LinearLayout>
+
+    <carbon.widget.Divider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</carbon.widget.LinearLayout>
