@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#11111111"
     tools:context=".MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
@@ -48,119 +49,18 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        <com.dobest.ray.corelibs.ptr.PtrNestedScrollview
+            android:id="@+id/pn_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <LinearLayout
+            <carbon.widget.FrameLayout
+                android:id="@+id/fl_main"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    app:cardCornerRadius="8dp">
-
-                    <carbon.widget.TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?attr/carbon_textAppearance_body2"
-                        android:textColor="@drawable/red_black_selector"
-                        android:text="【上善若水 https://github.com/ray0807 转载烦请注明出处，尊重分享成果】"
-                        android:textSize="18sp" />
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    app:cardCornerRadius="8dp">
-
-                    <com.facebook.drawee.view.SimpleDraweeView
-                        android:id="@+id/fb_imageview1"
-                        android:layout_width="match_parent"
-                        android:layout_margin="3dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    app:cardCornerRadius="8dp">
-
-                    <com.facebook.drawee.view.SimpleDraweeView
-                        android:id="@+id/fb_imageview2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:layout_gravity="center" />
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    app:cardCornerRadius="8dp">
-
-                    <com.facebook.drawee.view.SimpleDraweeView
-                        android:id="@+id/fb_imageview3"
-                        android:layout_width="match_parent"
-                        android:layout_margin="3dp"
-                        fresco:actualImageScaleType="fitCenter"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
-                    <carbon.widget.TextView
-                        android:layout_width="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_margin="3dp"
-                        android:textAppearance="?attr/carbon_textAppearance_body2"
-                        android:textColor="@drawable/red_black_selector"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:text="看什么看，这货这么肥还跟老子抢吃的，管不管！"/>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    app:cardCornerRadius="8dp">
-
-                    <carbon.widget.TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?attr/carbon_textAppearance_body2"
-                        android:textColor="@drawable/red_black_selector"
-                        android:text="【上善若水 https://github.com/ray0807 转载烦请注明出处，尊重分享成果】"
-                        android:textSize="18sp" />
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    app:cardCornerRadius="8dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/dog1" />
-
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
+                android:layout_height="match_parent">
+            </carbon.widget.FrameLayout>
+        </com.dobest.ray.corelibs.ptr.PtrNestedScrollview>
 
 
         <android.support.design.widget.FloatingActionButton
@@ -179,6 +79,5 @@
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
- />
+        android:layout_gravity="start" />
 </android.support.v4.widget.DrawerLayout>

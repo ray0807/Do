@@ -10,7 +10,7 @@
         android:orientation="horizontal" 
         android:gravity="center">
 
-        <com.bm.corelibs.views.CircularBar
+        <com.dobest.ray.corelibs.views.CircularBar
             android:layout_width="28dp"
             android:layout_height="28dp"
             app:circularColor="#a8a8a8"

@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.dobest.ray.corelibs.logic.BaseLogic;
 import com.dobest.ray.corelibs.utils.ToastMgr;
 import com.dobest.ray.corelibs.utils.Tools;
+import com.dobest.ray.raydo.App;
 import com.dobest.ray.raydo.R;
 import com.dobest.ray.raydo.activity.BaseActivity;
 import com.dobest.ray.raydo.activity.MainActivity;
@@ -94,23 +95,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         Intent it = null;
         switch (v.getId()) {
             case R.id.btn_login:
-                bean.name = et_username.getText().toString().trim();
-                bean.password = et_password.getText().toString().trim();
-                if (Tools.validatePhone(bean.name)) {
-                    if (Tools.validateLoginPassWord(bean.password)) {
-                        loadingDialog.show();
-                        manager.doLogin(this,bean.name,bean.password,this);
-                    } else {
-                        ToastMgr.show("请填写有效密码");
-                    }
-
+                if (App.getInstance().isDebug) {
+                    it = new Intent(LoginActivity.this, MainActivity.class);
+//                    jumpActivity(it);
                 } else {
-                    ToastMgr.show("请填写有效账户");
-                }
+                    bean.name = et_username.getText().toString().trim();
+                    bean.password = et_password.getText().toString().trim();
+                    if (Tools.validatePhone(bean.name)) {
+                        if (Tools.validateLoginPassWord(bean.password)) {
+                            loadingDialog.show();
+                            manager.doLogin(this, bean.name, bean.password, this);
+                        } else {
+                            ToastMgr.show("请填写有效密码");
+                        }
 
+                    } else {
+                        ToastMgr.show("请填写有效账户");
+                    }
+                }
                 break;
             case R.id.btn_reg:
-                it =new Intent(this,RegisterActivity.class);
+                it = new Intent(this, RegisterActivity.class);
                 break;
 
         }
@@ -122,18 +127,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onResponse(BaseData data) {
-        if (data.errorCode==0){
-            Accounts=data.result.Accounts;
-            if (Accounts!=null){
-                Intent it =new Intent(LoginActivity.this,MainActivity.class);
+        if (data.errorCode == 0) {
+            Accounts = data.result.Accounts;
+            if (Accounts != null) {
+                Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 jumpActivity(it);
             }
-        }else{
+        } else {
             ToastMgr.show(data.msg);
         }
         loadingDialog.dismiss();
     }
-
 
 
     @Override
@@ -147,7 +151,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void jumpActivity(Intent it) {
-        if (it!=null){
+        if (it != null) {
             startActivity(it);
         }
     }
