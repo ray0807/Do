@@ -5,8 +5,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#11111111"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
@@ -29,11 +29,10 @@
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                <ImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/back_drop"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/dog"
@@ -54,20 +53,60 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <carbon.widget.FrameLayout
                 android:id="@+id/fl_main"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </carbon.widget.FrameLayout>
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"></carbon.widget.FrameLayout>
         </com.dobest.ray.corelibs.ptr.PtrNestedScrollview>
 
+        <carbon.widget.CardView
+            android:id="@+id/powerMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#ffffffff"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:carbon_cornerRadius="2dp"
+            app:carbon_elevation="12dp"
+            app:carbon_inAnimation="fly"
+            app:carbon_outAnimation="fly">
+
+            <carbon.beta.TransitionLayout
+                android:id="@+id/transition"
+                android:layout_width="250dp"
+                android:layout_height="200dp">
+
+                <include
+                    layout="@layout/screen_powermenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    layout="@layout/screen_poweroff"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    layout="@layout/screen_reboot"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <include
+                    layout="@layout/screen_airplanemode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </carbon.beta.TransitionLayout>
+        </carbon.widget.CardView>
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:clickable="true"
+            android:id="@+id/fab_button"
             android:src="@android:drawable/ic_btn_speak_now"
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|right|end" />

@@ -55,6 +55,9 @@
         <activity
             android:name=".activity.login.RegisterActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.dobest.ray.raydo.activity.camera.UseCameraActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
