@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.dobest.ray.corelibs.ptr.PtrListView;
+import com.dobest.ray.corelibs.views.NoScrollingListView;
 import com.dobest.ray.raydo.R;
 
 /**
  * Created by wangl01 on 2015/11/20.
  */
 public class MomentsFragment extends Fragment {
-    private PtrListView ptr_list;
+    private NoScrollingListView ptr_list;
     /**
      * 下拉刷新控件
      */
@@ -44,9 +45,9 @@ public class MomentsFragment extends Fragment {
     }
 
     private void findViews(View view) {
-        ptr_list= (PtrListView) view.findViewById(R.id.ptr_list);
-        ptr_list.setScrollView(true);
-        ptr_list.getPtrView().setAdapter(new myAdapter());
+        ptr_list= (NoScrollingListView) view.findViewById(R.id.ptr_list);
+
+        ptr_list.setAdapter(new myAdapter());
     }
 
 

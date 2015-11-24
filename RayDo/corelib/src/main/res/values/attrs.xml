@@ -55,5 +55,4 @@
         <attr name="circularBackgroundColor" format="color" />
         <attr name="circularWidth" format="dimension" />
     </declare-styleable>
-
 </resources>

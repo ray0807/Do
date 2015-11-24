@@ -1,13 +1,9 @@
 package com.dobest.ray.corelibs.ptr;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.dobest.ray.corelib.R;
@@ -18,19 +14,19 @@ import com.in.recycler.pro.header.StoreHouseHeader;
 /**
  * Created by wangl01 on 2015/11/20.
  */
-public class PtrNestedScrollview extends PtrLollipopBaseView<NestedScrollView> {
+public class PtrCanSetFreshNestedScrollview extends PtrLollipopBaseView<NestedScrollView> {
     private NestedScrollView mNestedScrollView;
     private View child;
 
-    public PtrNestedScrollview(Context context) {
+    public PtrCanSetFreshNestedScrollview(Context context) {
         super(context);
     }
 
-    public PtrNestedScrollview(Context context, AttributeSet attrs) {
+    public PtrCanSetFreshNestedScrollview(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public PtrNestedScrollview(Context context, AttributeSet attrs, int defStyle) {
+    public PtrCanSetFreshNestedScrollview(Context context, AttributeSet attrs, int defStyle) {
 
         super(context, attrs, defStyle);
     }
@@ -62,25 +58,23 @@ public class PtrNestedScrollview extends PtrLollipopBaseView<NestedScrollView> {
         mPtrFrameLayout.setDurationToCloseHeader(300);
         mPtrFrameLayout.setPinContent(false);
         mPtrFrameLayout.setDurationToClose(300);
-//        if (hasSet) {
-//        mPtrFrameLayout.setPtrHandler(new PtrHandler() {
-//            @Override
-//            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-//                return CanRefresh;
-//            }
-//
-//            @Override
-//            public void onRefreshBegin(PtrFrameLayout frame) {
-//                if (mHandler != null)
-//                    mHandler.onRefreshing(frame);
-//            }
-//        });
-//        }
+        mPtrFrameLayout.setPtrHandler(new PtrHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return CanRefresh;
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                if (mHandler != null)
+                    mHandler.onRefreshing(frame);
+            }
+        });
     }
-//    private boolean CanRefresh=true;
-//    public void setCanRefresh(boolean CanRefresh){
-//        this.CanRefresh=CanRefresh;
-//    }
+    private boolean CanRefresh=true;
+    public void setCanRefresh(boolean CanRefresh){
+        this.CanRefresh=CanRefresh;
+    }
 
     @Override
     public NestedScrollView getPtrView() {

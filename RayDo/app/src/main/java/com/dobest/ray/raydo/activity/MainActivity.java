@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -32,12 +33,13 @@ import com.dobest.ray.corelibs.ptr.PtrNestedScrollview;
 import com.dobest.ray.corelibs.utils.FragmentController;
 import com.dobest.ray.corelibs.utils.ToastMgr;
 import com.dobest.ray.raydo.App;
+import com.dobest.ray.raydo.Interface.CallMainFreshInterface;
 import com.dobest.ray.raydo.R;
 import com.dobest.ray.raydo.activity.camera.UseCameraActivity;
+import com.dobest.ray.raydo.activity.details.DetailsInfoActivity;
 import com.dobest.ray.raydo.activity.main.MainFragment;
 import com.dobest.ray.raydo.activity.moments.MomentsFragment;
 import com.dobest.ray.raydo.bean.BaseData;
-import com.dobest.ray.raydo.utils.CacheDesc;
 import com.dobest.ray.raydo.utils.ImageUploader;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -54,7 +56,7 @@ import carbon.beta.TransitionLayout;
 import carbon.widget.FrameLayout;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, PtrLollipopBaseView.RALHandler, AppBarLayout.OnOffsetChangedListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, PtrLollipopBaseView.RALHandler {
     private String[] fragmentTags = {"fragment_main",
             "fragment_moments", "fragment_resume_manager", "fragment_job_fair",
             "fragment_hot_information", "fragment_career_guidance",
@@ -72,7 +74,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private carbon.widget.LinearLayout ll_moments;
     private carbon.widget.LinearLayout ll_public_topic;
     private carbon.widget.CardView powerMenu;
-    private FloatingActionButton fab_button;
     public static final int TAKE_PICTURE = 1;
     public static final int CROP_PICTURE = 10;
     public static final int CHOOSE_PICTURE = 2;
@@ -83,7 +84,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private AppBarLayout app_bar;
     boolean vibration = false, volume = true, airplaneMode = false;
 
-    private SimpleDraweeView back_drop;
+//    private SimpleDraweeView back_drop;
 
     //上传头像使用
     private ImageUploader uploader;
@@ -104,9 +105,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setHomeAsUpIndicator(android.R.drawable.ic_input_delete);
 //        actionBar.setDisplayHomeAsUpEnabled(true);
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Big Dog");
+//        CollapsingToolbarLayout collapsingToolbar =
+//                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//        collapsingToolbar.setTitle("Big Dog");
+        toolbar.setTitle("Big Dog");
         app_bar = (AppBarLayout) findViewById(R.id.app_bar);
 
         navigation_view = (NavigationView) findViewById(R.id.navigation_view);
@@ -121,10 +123,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ll_public_topic = (carbon.widget.LinearLayout) drawer_header.findViewById(R.id.ll_public_topic);
         powerMenu = (carbon.widget.CardView) findViewById(R.id.powerMenu);
         pn_scroll = (PtrNestedScrollview) findViewById(R.id.pn_scroll);
-        fab_button = (FloatingActionButton) findViewById(R.id.fab_button);
-        back_drop = (SimpleDraweeView) findViewById(R.id.back_drop);
-        //设置首页图片  测试
-        back_drop.setImageURI(Uri.parse(ImageUrl));
+//        back_drop = (SimpleDraweeView) findViewById(R.id.back_drop);
+//        //设置首页图片  测试
+//        back_drop.setImageURI(Uri.parse(ImageUrl));
     }
 
     public void init() {
@@ -161,9 +162,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void addListeners() {
         ll_moments.setOnClickListener(this);
         ll_public_topic.setOnClickListener(this);
-        fab_button.setOnClickListener(this);
+        pn_scroll.setOnClickListener(this);
         pn_scroll.setRALHandler(this);
-        app_bar.addOnOffsetChangedListener(this);
         //设置对话框
         setPopDialog();
         //上传头像回调
@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         ImageUrl = reData.result.ImageUrl;
                         ACache.get(MainActivity.this).put("ImageUrl", ImageUrl);
                         mSimpleDraweeView.setImageURI(Uri.parse(ImageUrl));
-                        back_drop.setImageURI(Uri.parse(ImageUrl));
+//                        back_drop.setImageURI(Uri.parse(ImageUrl));
                         Snackbar.make(drawer_layout, "上传成功", Snackbar.LENGTH_LONG).show();
                     }
 
@@ -197,6 +197,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 uploader.clearCache();
             }
         });
+
     }
 
     @Override
@@ -211,6 +212,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mFragmentController.add(MainFragment.class,
                         fragmentTags[0], null);
                 break;
+
         }
     }
 
@@ -348,6 +350,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 v.getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        Intent it =new Intent(MainActivity.this, DetailsInfoActivity.class);
+                        startActivity(it);
                         powerMenu.setVisibility(View.INVISIBLE);
                     }
                 }, 1000);
@@ -356,10 +360,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 
     }
-
-    private Handler mHandler = new Handler() {
-
-    };
 
     @Override
     public void onRefreshing(PtrFrameLayout frame) {
@@ -376,25 +376,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        Log.i("wanglei", "i：" + i);
-        if (i == 0) {
-            pn_scroll.setCanRefresh(true);
-        } else {
-            pn_scroll.setCanRefresh(false);
-        }
-    }
 
     @Override
     protected void onResume() {
-        app_bar.addOnOffsetChangedListener(this);
         super.onResume();
     }
 
     @Override
     protected void onStop() {
-        app_bar.removeOnOffsetChangedListener(this);
         super.onStop();
     }
 
