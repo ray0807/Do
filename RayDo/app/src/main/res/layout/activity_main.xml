@@ -17,10 +17,10 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+<!--            <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -44,20 +44,24 @@
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin" />
 
-            </android.support.design.widget.CollapsingToolbarLayout>
-
+            </android.support.design.widget.CollapsingToolbarLayout>-->
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
         </android.support.design.widget.AppBarLayout>
 
         <com.dobest.ray.corelibs.ptr.PtrNestedScrollview
             android:id="@+id/pn_scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <carbon.widget.FrameLayout
                 android:id="@+id/fl_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"></carbon.widget.FrameLayout>
         </com.dobest.ray.corelibs.ptr.PtrNestedScrollview>
 
@@ -100,16 +104,6 @@
                     android:layout_height="match_parent" />
             </carbon.beta.TransitionLayout>
         </carbon.widget.CardView>
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:clickable="true"
-            android:id="@+id/fab_button"
-            android:src="@android:drawable/ic_btn_speak_now"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="bottom|right|end" />
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- app:headerLayout="@layout/drawer_header"
