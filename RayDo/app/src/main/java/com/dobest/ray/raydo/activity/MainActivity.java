@@ -11,17 +11,22 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.dobest.ray.corelibs.AppManager;
+import com.dobest.ray.corelibs.cache.ACache;
 import com.dobest.ray.corelibs.ptr.PtrLollipopBaseView;
 import com.dobest.ray.corelibs.ptr.PtrNestedScrollview;
 import com.dobest.ray.corelibs.utils.FragmentController;
@@ -32,6 +37,7 @@ import com.dobest.ray.raydo.activity.camera.UseCameraActivity;
 import com.dobest.ray.raydo.activity.main.MainFragment;
 import com.dobest.ray.raydo.activity.moments.MomentsFragment;
 import com.dobest.ray.raydo.bean.BaseData;
+import com.dobest.ray.raydo.utils.CacheDesc;
 import com.dobest.ray.raydo.utils.ImageUploader;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -46,8 +52,6 @@ import java.util.Map;
 
 import carbon.beta.TransitionLayout;
 import carbon.widget.FrameLayout;
-import carbon.widget.SVGView;
-import carbon.widget.TextView;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, PtrLollipopBaseView.RALHandler, AppBarLayout.OnOffsetChangedListener {
@@ -71,6 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private FloatingActionButton fab_button;
     public static final int TAKE_PICTURE = 1;
     public static final int CROP_PICTURE = 10;
+    public static final int CHOOSE_PICTURE = 2;
     /**
      * fragment control center
      */
@@ -124,7 +129,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     public void init() {
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this,
-                drawer_layout, toolbar, R.string.open, R.string.close);
+                drawer_layout, toolbar, R.string.open, R.string.close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                isShow = true;
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                isShow = false;
+                super.onDrawerClosed(drawerView);
+            }
+        };
         mActionBarDrawerToggle.syncState();
         drawer_layout.setDrawerListener(mActionBarDrawerToggle);
         //设置侧滑栏头像
@@ -157,11 +174,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 } else if (resultCode == ImageUploader.RESULT_OK) {
                     Gson gson = new Gson();
                     BaseData reData = gson.fromJson(data, BaseData.class);
-                    Log.i("wanglei", "data:"+data);
+                    Log.i("wanglei", "data:" + data);
+                    String ImageUrl = "";
                     if (reData.errorCode == 0) {
-//                        Log.i("wanglei", reData.result.photoUrl);
-
-                        ToastMgr.show("上传成功");
+                        ImageUrl = reData.result.ImageUrl;
+                        ACache.get(MainActivity.this).put("ImageUrl", ImageUrl);
+                        mSimpleDraweeView.setImageURI(Uri.parse(ImageUrl));
+                        back_drop.setImageURI(Uri.parse(ImageUrl));
+                        Snackbar.make(drawer_layout, "上传成功", Snackbar.LENGTH_LONG).show();
                     }
 
                 }
@@ -172,7 +192,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         uploader.setOnResultErrListener(new ImageUploader.OnResultErr() {
             @Override
             public void onResultErr(int key, int resultCode, String data) {
-                ToastMgr.show("上传失败");
+                Snackbar.make(drawer_layout, "上传失败", Snackbar.LENGTH_LONG).show();
                 Log.i("wanglei", "data:" + data);
                 uploader.clearCache();
             }
@@ -190,9 +210,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.ll_public_topic:
                 mFragmentController.add(MainFragment.class,
                         fragmentTags[0], null);
-                break;
-            case R.id.fb_imageview:
-                ToastMgr.show("上传图像");
                 break;
         }
     }
@@ -294,9 +311,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 v.getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        Intent intentFromGallery = new Intent();
+                        intentFromGallery.setType("image/*"); // 设置文件类型
+                        intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+                        MainActivity.this.startActivityForResult(intentFromGallery, CHOOSE_PICTURE);
                         powerMenu.setVisibility(View.INVISIBLE);
                     }
-                }, 3000);
+                }, 1000);
             }
         });
         /**
@@ -345,7 +366,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.i("wanglei", "ad");
                 pn_scroll.refreshComplete();
             }
         }, 2000);
@@ -402,6 +422,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 bitmap = uploader.compressBitmap(bitmap);
                 upLoadImage(bitmap);
                 break;
+            case CHOOSE_PICTURE:
+                if (data != null) {
+                    startPhotoZoom(data.getData());
+                } else {
+                    Log.e("wanglei", "CHOOSE_SMALL_PICTURE: data = " + data);
+                    return;
+                }
+                break;
 
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -455,8 +483,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void upLoadImage(Bitmap bm) {
 
         Map<String, String> params = new HashMap<String, String>();
-        String inputName = "img"+ System.currentTimeMillis();
-        params.put("fileName", inputName);
+        params.put("userName", "15971470520");
         if (bm != null) {
             try {
                 files.put("img", uploader.bitmapTofile(bm));
@@ -467,4 +494,59 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
 
     }
+
+    private boolean isShow = false;
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (isShow) {
+                drawer_layout.closeDrawers();
+                isShow = false;
+                return false;
+            } else if (!(mFragmentController.getCurrentFragment() instanceof MainFragment)) {
+                mFragmentController
+                        .add(MainFragment.class, fragmentTags[0], null);
+            } else {
+                doublePressBackToast();
+            }
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_MENU) {
+            // 在这里做你想做的事情
+            drawer_layout.openDrawer(Gravity.LEFT);
+            return true;
+        } else {
+            return super.onKeyUp(keyCode, event);
+        }
+    }
+
+    private boolean isBackPressed;
+
+    /**
+     * 双击返回退出
+     *
+     * @return void
+     * @throws
+     * @author ZhuFan
+     * @Package com.bm.talonmobile.activity.main
+     * @Date 2015-6-1 下午3:28:36
+     */
+
+    private void doublePressBackToast() {
+        if (!isBackPressed) {
+            isBackPressed = true;
+            Snackbar.make(drawer_layout, "再次点击返回退出程序", Snackbar.LENGTH_LONG).show();
+        } else {
+            AppManager.getAppManager().appExit();
+        }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isBackPressed = false;
+            }
+        }, 2000);
+    }
+
 }

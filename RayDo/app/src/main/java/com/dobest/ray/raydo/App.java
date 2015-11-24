@@ -25,7 +25,7 @@ public class App extends Application {
 	static App instance;
 
 
-	public final boolean isDebug = true;// 是否为调试模式
+	public final boolean isDebug = false;// 是否为调试模式
 	public ImageLoader mImageLoader;
 	public DataCache dataCache;
 	public DataCache userCache;

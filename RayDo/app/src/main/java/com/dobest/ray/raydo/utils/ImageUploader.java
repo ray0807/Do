@@ -49,7 +49,7 @@ public class ImageUploader {
 	/**
 	 * 缓存图片基础文件名, 具体文件名为基础文件名+时间戳
 	 */
-	public static final String IMAGE_BASE_NAME = "tmp";
+	public static final String IMAGE_BASE_NAME = "tem";
 
 	/**
 	 * 缓存图片文件类型
@@ -285,9 +285,9 @@ public class ImageUploader {
 		try {
 			JSONObject object = new JSONObject(data);
 			JSONObject jsonData = object.getJSONObject("data");
-			String status = object.getString("status");
+			String status = object.getString("errorCode");
 			urls.status = status;
-			if (status.equals("1")) {
+			if (status.equals("0")) {
 				urls.img1 = jsonData.getString("img1");
 				urls.img2 = jsonData.getString("img2");
 				urls.img3 = jsonData.getString("img3");

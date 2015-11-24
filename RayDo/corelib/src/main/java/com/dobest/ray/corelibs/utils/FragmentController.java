@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.dobest.ray.corelib.R;
+
 /**
  * 用于对Fragment进行管理
  * 
@@ -28,6 +30,7 @@ public class FragmentController {
 
 	public void add(Class<? extends Fragment> clazz, String tag, Bundle bundle) {
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		transaction.setCustomAnimations(R.anim.in_left_right, R.anim.out_left_right,R.anim.in_right_left,R.anim.out_right_left);
 		for (String tagName : fragmentTags) {
 			Fragment fragment = fragmentManager.findFragmentByTag(tagName);
 			if (fragment != null) {
@@ -52,6 +55,7 @@ public class FragmentController {
 			} else {
 				currentFragment = fragment;
 				transaction.show(fragment);
+
 			}
 		} else {
 			try {
