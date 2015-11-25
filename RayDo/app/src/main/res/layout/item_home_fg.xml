@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <carbon.widget.TextView
+            android:id="@+id/tv_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="【上善若水 https://github.com/ray0807 转载烦请注明出处，尊重分享成果】"
+            android:textAppearance="?attr/carbon_textAppearance_body2"
+            android:textColor="@drawable/red_black_selector"
+            android:textSize="18sp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/fb_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="3dp" />
+    </LinearLayout>
+</LinearLayout>

@@ -35,4 +35,5 @@ dependencies {
     compile project(':corelib')
     compile 'com.facebook.fresco:fresco:0.8.1'
     compile project(':carbon')
+    compile 'de.greenrobot:eventbus:3.0.0-beta1'
 }

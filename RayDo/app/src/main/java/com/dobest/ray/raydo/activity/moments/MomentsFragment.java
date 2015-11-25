@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import com.dobest.ray.corelibs.ptr.PtrListView;
 import com.dobest.ray.corelibs.views.NoScrollingListView;
 import com.dobest.ray.raydo.R;
+import com.dobest.ray.raydo.views.NoScrollRecyclerView;
 
 /**
  * Created by wangl01 on 2015/11/20.
@@ -46,7 +47,6 @@ public class MomentsFragment extends Fragment {
 
     private void findViews(View view) {
         ptr_list= (NoScrollingListView) view.findViewById(R.id.ptr_list);
-
         ptr_list.setAdapter(new myAdapter());
     }
 

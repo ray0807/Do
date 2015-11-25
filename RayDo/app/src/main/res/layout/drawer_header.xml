@@ -80,6 +80,7 @@
         android:layout_height="wrap_content" />
 
     <carbon.widget.LinearLayout
+        android:id="@+id/ll_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -100,7 +101,7 @@
             android:layout_marginLeft="@dimen/carbon_padding"
             android:duplicateParentState="true"
             android:gravity="center_vertical"
-            android:text="DNS"
+            android:text="地图"
             android:textAppearance="?attr/carbon_textAppearance_body2"
             android:textColor="@drawable/red_black_selector" />
     </carbon.widget.LinearLayout>

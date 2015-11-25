@@ -38,6 +38,7 @@ import com.dobest.ray.raydo.R;
 import com.dobest.ray.raydo.activity.camera.UseCameraActivity;
 import com.dobest.ray.raydo.activity.details.DetailsInfoActivity;
 import com.dobest.ray.raydo.activity.main.MainFragment;
+import com.dobest.ray.raydo.activity.map.MapFragment;
 import com.dobest.ray.raydo.activity.moments.MomentsFragment;
 import com.dobest.ray.raydo.bean.BaseData;
 import com.dobest.ray.raydo.utils.ImageUploader;
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private FrameLayout fl_main;
     private carbon.widget.LinearLayout ll_moments;
     private carbon.widget.LinearLayout ll_public_topic;
+    private carbon.widget.LinearLayout ll_map;
     private carbon.widget.CardView powerMenu;
     public static final int TAKE_PICTURE = 1;
     public static final int CROP_PICTURE = 10;
@@ -96,6 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         findViews();
         init();
         addListeners();
+
     }
 
 
@@ -121,6 +124,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         fl_main = (FrameLayout) findViewById(R.id.fl_main);
         ll_moments = (carbon.widget.LinearLayout) drawer_header.findViewById(R.id.ll_moments);
         ll_public_topic = (carbon.widget.LinearLayout) drawer_header.findViewById(R.id.ll_public_topic);
+        ll_map = (carbon.widget.LinearLayout) drawer_header.findViewById(R.id.ll_map);
         powerMenu = (carbon.widget.CardView) findViewById(R.id.powerMenu);
         pn_scroll = (PtrNestedScrollview) findViewById(R.id.pn_scroll);
 //        back_drop = (SimpleDraweeView) findViewById(R.id.back_drop);
@@ -162,6 +166,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void addListeners() {
         ll_moments.setOnClickListener(this);
         ll_public_topic.setOnClickListener(this);
+        ll_map.setOnClickListener(this);
         pn_scroll.setOnClickListener(this);
         pn_scroll.setRALHandler(this);
         //设置对话框
@@ -207,10 +212,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.ll_moments:
                 mFragmentController.add(MomentsFragment.class,
                         fragmentTags[1], null);
+                toolbar.setTitle("朋友圈");
+
                 break;
             case R.id.ll_public_topic:
                 mFragmentController.add(MainFragment.class,
                         fragmentTags[0], null);
+                toolbar.setTitle("Big Dog");
+                break;
+            case R.id.ll_map:
+                mFragmentController.add(MapFragment.class,
+                        fragmentTags[2], null);
+                toolbar.setTitle("地图");
                 break;
 
         }
@@ -350,7 +363,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 v.getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent it =new Intent(MainActivity.this, DetailsInfoActivity.class);
+                        Intent it = new Intent(MainActivity.this, DetailsInfoActivity.class);
                         startActivity(it);
                         powerMenu.setVisibility(View.INVISIBLE);
                     }
