@@ -113,7 +113,6 @@ public class App extends Application {
 
 //		initCrush();
 		Fresco.initialize(this);
-
 	}
 
 	private void initCrush() {

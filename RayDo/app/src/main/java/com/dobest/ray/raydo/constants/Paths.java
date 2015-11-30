@@ -7,11 +7,11 @@ package com.dobest.ray.raydo.constants;
  * 
  */
 public class Paths {
-	public static final String HttpCache = "/Ray/httpCache";
+	public static final String HttpCache = "/Ray/httpCache/";
 	public static final String JsonCache = "/Ray/jsonCache/";
 	public static final String UserCache = "/Ray/userCache/";
 	public static final String UploadCache = "/Ray/upload/";
 	public static final String ApkCache = "/Ray/apk/";
-	public static final String ApkImage = "/Ray";
+	public static final String ApkImage = "/Ray/";
 	public static final String CrushDir = "/Ray/crush/";
 }

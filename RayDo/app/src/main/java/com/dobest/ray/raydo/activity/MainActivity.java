@@ -36,6 +36,7 @@ import com.dobest.ray.raydo.App;
 import com.dobest.ray.raydo.Interface.CallMainFreshInterface;
 import com.dobest.ray.raydo.R;
 import com.dobest.ray.raydo.activity.camera.UseCameraActivity;
+import com.dobest.ray.raydo.activity.chat.ChatFragment;
 import com.dobest.ray.raydo.activity.details.DetailsInfoActivity;
 import com.dobest.ray.raydo.activity.main.MainFragment;
 import com.dobest.ray.raydo.activity.map.MapFragment;
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private FrameLayout fl_main;
     private carbon.widget.LinearLayout ll_moments;
+    private carbon.widget.LinearLayout ll_chat;
     private carbon.widget.LinearLayout ll_public_topic;
     private carbon.widget.LinearLayout ll_map;
     private carbon.widget.CardView powerMenu;
@@ -123,6 +125,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
         fl_main = (FrameLayout) findViewById(R.id.fl_main);
         ll_moments = (carbon.widget.LinearLayout) drawer_header.findViewById(R.id.ll_moments);
+        ll_chat = (carbon.widget.LinearLayout) drawer_header.findViewById(R.id.ll_chat);
         ll_public_topic = (carbon.widget.LinearLayout) drawer_header.findViewById(R.id.ll_public_topic);
         ll_map = (carbon.widget.LinearLayout) drawer_header.findViewById(R.id.ll_map);
         powerMenu = (carbon.widget.CardView) findViewById(R.id.powerMenu);
@@ -165,6 +168,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     public void addListeners() {
         ll_moments.setOnClickListener(this);
+        ll_chat.setOnClickListener(this);
         ll_public_topic.setOnClickListener(this);
         ll_map.setOnClickListener(this);
         pn_scroll.setOnClickListener(this);
@@ -211,7 +215,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         switch (v.getId()) {
             case R.id.ll_moments:
                 mFragmentController.add(MomentsFragment.class,
-                        fragmentTags[1], null);
+                        fragmentTags[2], null);
                 toolbar.setTitle("朋友圈");
 
                 break;
@@ -222,8 +226,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.ll_map:
                 mFragmentController.add(MapFragment.class,
-                        fragmentTags[2], null);
+                        fragmentTags[1], null);
                 toolbar.setTitle("地图");
+                break;
+            case R.id.ll_chat:
+                mFragmentController.add(ChatFragment.class,
+                        fragmentTags[3], null);
+                toolbar.setTitle("Chat Room");
                 break;
 
         }
