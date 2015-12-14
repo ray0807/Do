@@ -39,6 +39,7 @@ import com.dobest.ray.raydo.activity.camera.UseCameraActivity;
 import com.dobest.ray.raydo.activity.chat.ChatFragment;
 import com.dobest.ray.raydo.activity.details.DetailsInfoActivity;
 import com.dobest.ray.raydo.activity.main.MainFragment;
+import com.dobest.ray.raydo.activity.map.BasicMapActivity;
 import com.dobest.ray.raydo.activity.map.MapFragment;
 import com.dobest.ray.raydo.activity.moments.MomentsFragment;
 import com.dobest.ray.raydo.bean.BaseData;
@@ -46,6 +47,7 @@ import com.dobest.ray.raydo.utils.ImageUploader;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.in.recycler.pro.PtrFrameLayout;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -183,7 +185,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 } else if (resultCode == ImageUploader.RESULT_OK) {
                     Gson gson = new Gson();
                     BaseData reData = gson.fromJson(data, BaseData.class);
-                    Log.i("wanglei", "data:" + data);
                     String ImageUrl = "";
                     if (reData.errorCode == 0) {
                         ImageUrl = reData.result.ImageUrl;
@@ -202,7 +203,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             @Override
             public void onResultErr(int key, int resultCode, String data) {
                 Snackbar.make(drawer_layout, "上传失败", Snackbar.LENGTH_LONG).show();
-                Log.i("wanglei", "data:" + data);
                 uploader.clearCache();
             }
         });
@@ -225,9 +225,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 toolbar.setTitle("Big Dog");
                 break;
             case R.id.ll_map:
-                mFragmentController.add(MapFragment.class,
-                        fragmentTags[1], null);
-                toolbar.setTitle("地图");
+//                mFragmentController.add(MapFragment.class,
+//                        fragmentTags[1], null);
+//                toolbar.setTitle("地图");
+                Intent it =new Intent(MainActivity.this, BasicMapActivity.class);
+                startActivity(it);
                 break;
             case R.id.ll_chat:
                 mFragmentController.add(ChatFragment.class,
@@ -411,7 +413,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("wanglei", "requestCode:" + requestCode + "|resultCode:" + resultCode);
         switch (resultCode) {
             case 2001:
                 //照相程序返回
@@ -492,6 +493,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
      * @param bm
      */
     private void upLoadImage(Bitmap bm) {
+
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("userName", "15971470520");

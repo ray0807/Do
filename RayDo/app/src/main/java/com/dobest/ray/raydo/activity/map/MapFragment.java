@@ -17,8 +17,8 @@ import com.dobest.ray.raydo.R;
  */
 public class MapFragment extends Fragment {
     //声明变量
-//    private MapView mapView;
-//    private AMap aMap;
+    private MapView mapView;
+    private AMap aMap;
 
     /**
      * activity 实例
@@ -36,8 +36,8 @@ public class MapFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         //实例化地图
-//        mapView = (MapView) view.findViewById(R.id.map);
-//        mapView.onCreate(savedInstanceState);// 此方法必须重写
+        mapView = (MapView) view.findViewById(R.id.map);
+        mapView.onCreate(savedInstanceState);// 此方法必须重写
         findViews(view);
         init();
         addListeners();
@@ -45,9 +45,9 @@ public class MapFragment extends Fragment {
     }
 
     private void findViews(View view) {
-//        if (aMap == null) {
-//            aMap = mapView.getMap();
-//        }
+        if (aMap == null) {
+            aMap = mapView.getMap();
+        }
     }
 
     private void init() {
@@ -63,7 +63,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        mapView.onResume();
+        mapView.onResume();
     }
 
     /**
@@ -72,7 +72,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-//        mapView.onPause();
+        mapView.onPause();
     }
 
     /**
@@ -81,7 +81,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-//        mapView.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 
     /**
@@ -90,6 +90,6 @@ public class MapFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        mapView.onDestroy();
+        mapView.onDestroy();
     }
 }
