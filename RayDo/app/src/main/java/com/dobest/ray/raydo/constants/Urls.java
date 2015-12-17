@@ -14,6 +14,7 @@ public class Urls {
 	public static final String ROOT_URL = "http://114.215.94.193:8088/";
 
 	public static final String LOGIN_URL=ROOT_URL+"login";
+	public static final String REGISTER_URL=ROOT_URL+"reg";
 
 
 }

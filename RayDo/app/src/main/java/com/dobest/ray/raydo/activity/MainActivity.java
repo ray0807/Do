@@ -1,28 +1,20 @@
 package com.dobest.ray.raydo.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.Vibrator;
-import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -33,21 +25,18 @@ import com.dobest.ray.corelibs.ptr.PtrNestedScrollview;
 import com.dobest.ray.corelibs.utils.FragmentController;
 import com.dobest.ray.corelibs.utils.ToastMgr;
 import com.dobest.ray.raydo.App;
-import com.dobest.ray.raydo.Interface.CallMainFreshInterface;
 import com.dobest.ray.raydo.R;
 import com.dobest.ray.raydo.activity.camera.UseCameraActivity;
 import com.dobest.ray.raydo.activity.chat.ChatFragment;
 import com.dobest.ray.raydo.activity.details.DetailsInfoActivity;
 import com.dobest.ray.raydo.activity.main.MainFragment;
 import com.dobest.ray.raydo.activity.map.BasicMapActivity;
-import com.dobest.ray.raydo.activity.map.MapFragment;
 import com.dobest.ray.raydo.activity.moments.MomentsFragment;
 import com.dobest.ray.raydo.bean.BaseData;
 import com.dobest.ray.raydo.utils.ImageUploader;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.in.recycler.pro.PtrFrameLayout;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -228,7 +217,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 //                mFragmentController.add(MapFragment.class,
 //                        fragmentTags[1], null);
 //                toolbar.setTitle("地图");
-                Intent it =new Intent(MainActivity.this, BasicMapActivity.class);
+                Intent it = new Intent(MainActivity.this, BasicMapActivity.class);
                 startActivity(it);
                 break;
             case R.id.ll_chat:
