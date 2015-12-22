@@ -30,7 +30,8 @@ import com.dobest.ray.raydo.activity.camera.UseCameraActivity;
 import com.dobest.ray.raydo.activity.chat.ChatFragment;
 import com.dobest.ray.raydo.activity.details.DetailsInfoActivity;
 import com.dobest.ray.raydo.activity.main.MainFragment;
-import com.dobest.ray.raydo.activity.map.BasicMapActivity;
+import com.dobest.ray.raydo.activity.map.MapChatActivity;
+import com.dobest.ray.raydo.activity.map.MapFragment;
 import com.dobest.ray.raydo.activity.moments.MomentsFragment;
 import com.dobest.ray.raydo.bean.BaseData;
 import com.dobest.ray.raydo.utils.ImageUploader;
@@ -127,6 +128,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     public void init() {
+
+        //设置实时定位
+        App.getInstance().setWebSocketEnable(true);
+
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawer_layout, toolbar, R.string.open, R.string.close) {
             @Override
@@ -217,7 +222,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 //                mFragmentController.add(MapFragment.class,
 //                        fragmentTags[1], null);
 //                toolbar.setTitle("地图");
-                Intent it = new Intent(MainActivity.this, BasicMapActivity.class);
+                Intent it = new Intent(this, MapChatActivity.class);
                 startActivity(it);
                 break;
             case R.id.ll_chat:
@@ -540,6 +545,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             isBackPressed = true;
             Snackbar.make(drawer_layout, "再次点击返回退出程序", Snackbar.LENGTH_LONG).show();
         } else {
+            //设置实时定位
+            App.getInstance().setWebSocketEnable(false);
+            //销毁定位
+            App.getInstance().destroyLocation();
+            App.getInstance().closeWebSocket();
+
             AppManager.getAppManager().appExit();
         }
 

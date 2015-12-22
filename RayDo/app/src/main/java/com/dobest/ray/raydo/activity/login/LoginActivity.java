@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.android.volley.VolleyError;
+import com.dobest.ray.corelibs.cache.ACache;
 import com.dobest.ray.corelibs.logic.BaseLogic;
 import com.dobest.ray.corelibs.utils.ToastMgr;
 import com.dobest.ray.corelibs.utils.Tools;
@@ -130,8 +131,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         if (data.errorCode == 0) {
             Accounts = data.result.Accounts;
             if (Accounts != null) {
+                App.getInstance().startWebSocket(Accounts.Account);
                 Intent it = new Intent(LoginActivity.this, MainActivity.class);
                 jumpActivity(it);
+
             }
         } else {
             ToastMgr.show(data.msg);

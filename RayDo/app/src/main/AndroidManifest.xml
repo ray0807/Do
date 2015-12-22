@@ -35,7 +35,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <application
         android:name=".App"
@@ -44,11 +44,15 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <!--高德地图使用-->
+        <!--百度地图-->
         <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="118e1b4d4a92864f5a5e387768c48e25"/>
-
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="Cnjr2ui0HpwHAc0GybZSiiBj" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+        <!--百度地图-->
         <activity
             android:name=".activity.login.LoginActivity"
             android:label="@string/app_name"
@@ -61,10 +65,10 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.login.RegisterActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.dobest.ray.raydo.activity.camera.UseCameraActivity"
             android:screenOrientation="portrait" />
@@ -72,7 +76,7 @@
             android:name="com.dobest.ray.raydo.activity.details.DetailsInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.dobest.ray.raydo.activity.map.BasicMapActivity"
+            android:name="com.dobest.ray.raydo.activity.map.MapChatActivity"
             android:screenOrientation="portrait" />
     </application>
 
