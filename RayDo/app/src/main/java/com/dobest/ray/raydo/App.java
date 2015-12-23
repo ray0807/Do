@@ -36,9 +36,9 @@ import com.dobest.ray.raydo.utils.CustomCrashHandler;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 
+import de.tavendo.autobahn.WebSocket;
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
-import de.tavendo.autobahn.WebSocketHandler;
 
 
 public class App extends Application {
@@ -313,6 +313,11 @@ public class App extends Application {
     private List<LocationCallBack> observers = new ArrayList<LocationCallBack>();
 
     /**
+     * 10次定位传出一次数据
+     */
+    private int i10 = 0;
+
+    /**
      * 定位SDK监听函数
      */
     public class MyLocationListenner implements BDLocationListener {
@@ -327,11 +332,15 @@ public class App extends Application {
             if (isCanStart && currentLatlng != null)
                 sendMessage(new Gson().toJson(currentLatlng));
             //返回我自己的经纬度
-            if (observers != null && observers.size() > 0) {
+            Log.i("wanglei", "location  0 ");
+
+            if (observers != null && i10 / 10 == 0 && observers.size() > 0) {
                 for (LocationCallBack callback : observers) {
+                    Log.i("wanglei", "观察者不为null ");
                     callback.returnLocation(location);
                 }
             }
+            i10++;
         }
 
         public void onReceivePoi(BDLocation poiLocation) {
@@ -371,7 +380,7 @@ public class App extends Application {
 
     //=====================websocket=======================
 
-    private final WebSocketConnection mConnection = new WebSocketConnection();
+    private WebSocketConnection mConnection = new WebSocketConnection();
 
     private boolean isCanStart = false;
 
@@ -382,29 +391,36 @@ public class App extends Application {
         final String wsuri = "ws://114.215.94.193:8088/ws/join?uname=" + name;
 
         try {
-            mConnection.connect(wsuri, new WebSocketHandler() {
-
+            mConnection.connect(wsuri, new WebSocket.ConnectionHandler() {
                 @Override
                 public void onOpen() {
                     Log.d("wanglei", "Status: Connected to " + wsuri);
-
                 }
 
                 @Override
-                public void onTextMessage(String payload) {
-//                    ToastMgr.show("收到消息：" + payload);
+                public void onClose(int i, String s) {
+                    Log.d("wanglei", "Status: onClose " + wsuri);
+                }
+
+                @Override
+                public void onTextMessage(String s) {
                     Gson gson = new Gson();
-                    MessageBean msg = gson.fromJson(payload, MessageBean.class);
+                    MessageBean msg = gson.fromJson(s, MessageBean.class);
+                    Log.i("wanglei", "reveive message： " + s);
                     if (msg != null) {
-                        Log.i("wanglei","0");
+                        Log.i("wanglei", "reveive message ！=null ");
                         setMessageData(msg);
                     }
+                }
+
+                @Override
+                public void onRawTextMessage(byte[] bytes) {
 
                 }
 
                 @Override
-                public void onClose(int code, String reason) {
-                    Log.d("wanglei", "Connection lost.");
+                public void onBinaryMessage(byte[] bytes) {
+
                 }
             });
         } catch (WebSocketException e) {
@@ -419,7 +435,18 @@ public class App extends Application {
     }
 
     public void sendMessage(String content) {
-        mConnection.sendTextMessage(content);
+        if (mConnection == null) {
+            Log.i("wanglei", "mConnection==null");
+            mConnection = new WebSocketConnection();
+            start(name);
+        }
+        if (!mConnection.isConnected()) {
+            start(name);
+            Log.i("wanglei", "mConnection is disconnect");
+        } else {
+            mConnection.sendTextMessage(content);
+        }
+
     }
 
     public void startWebSocket(String name) {
@@ -432,16 +459,15 @@ public class App extends Application {
     }
 
     private void setMessageData(MessageBean msg) {
+        Log.i("wanglei", "sendmessage  0");
         //如果不是自己就不要发送
-        Log.i("wanglei","1");
-
         if (!msg.User.equals(name)) {
-            Log.i("wanglei","2");
-            LatLng yourFriendLatLng = new Gson().fromJson(msg.Content, LatLng.class);
+            Log.i("wanglei", "sendmessage  1");
             if (fMessageCallback != null && fMessageCallback.size() > 0) {
-                Log.i("wanglei","3");
-                for (MessageFriendLatLogCallBack callback :fMessageCallback) {
-                    callback.getFriendLatlng(yourFriendLatLng);
+                Log.i("wanglei", "sendmessage  2");
+                for (MessageFriendLatLogCallBack callback : fMessageCallback) {
+                    Log.i("wanglei", "sendmessage  3");
+                    callback.getFriendMessage(msg);
                 }
             }
         }
@@ -458,5 +484,4 @@ public class App extends Application {
             fMessageCallback.remove(messageCallBack);
     }
     //=====================websocket=======================
-
 }

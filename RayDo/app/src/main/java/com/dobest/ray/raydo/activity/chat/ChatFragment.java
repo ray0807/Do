@@ -13,9 +13,9 @@ import com.dobest.ray.corelibs.utils.ToastMgr;
 import com.dobest.ray.raydo.R;
 
 import carbon.widget.Button;
+import de.tavendo.autobahn.WebSocket;
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
-import de.tavendo.autobahn.WebSocketHandler;
 
 /**
  * Created by wangl01 on 2015/11/20.
@@ -102,23 +102,31 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         final String wsuri = "ws://114.215.94.193:8088/ws/join?uname=" + et_name.getText().toString().trim();
 
         try {
-            mConnection.connect(wsuri, new WebSocketHandler() {
-
+            mConnection.connect(wsuri, new WebSocket.ConnectionHandler() {
                 @Override
                 public void onOpen() {
                     Log.d("wanglei", "Status: Connected to " + wsuri);
-
                 }
 
                 @Override
-                public void onTextMessage(String payload) {
-                    Log.d("wanglei", "Got echo: " + payload);
-                    ToastMgr.show("收到消息：" + payload);
-                }
-
-                @Override
-                public void onClose(int code, String reason) {
+                public void onClose(int i, String s) {
                     Log.d("wanglei", "Connection lost.");
+                }
+
+                @Override
+                public void onTextMessage(String s) {
+                    Log.d("wanglei", "Got echo: " + s);
+                    ToastMgr.show("收到消息：" + s);
+                }
+
+                @Override
+                public void onRawTextMessage(byte[] bytes) {
+
+                }
+
+                @Override
+                public void onBinaryMessage(byte[] bytes) {
+
                 }
             });
         } catch (WebSocketException e) {
@@ -138,7 +146,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_bind:
                 //应该是初始化的时候链接服务器 但是为了测试数据
-                if (et_name.getText().toString().trim().length()==0){
+                if (et_name.getText().toString().trim().length() == 0) {
                     ToastMgr.show("你应该先填写发送人姓名");
                     return;
                 }

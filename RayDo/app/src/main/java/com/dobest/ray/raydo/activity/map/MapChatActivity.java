@@ -1,6 +1,7 @@
 package com.dobest.ray.raydo.activity.map;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
@@ -16,11 +17,12 @@ import com.dobest.ray.raydo.Interface.LocationCallBack;
 import com.dobest.ray.raydo.Interface.MessageFriendLatLogCallBack;
 import com.dobest.ray.raydo.R;
 import com.dobest.ray.raydo.activity.BaseActivity;
+import com.dobest.ray.raydo.bean.MessageBean;
 
 /**
  * Created by wangl01 on 2015/12/22.
  */
-public class MapChatActivity extends BaseActivity implements LocationCallBack,MessageFriendLatLogCallBack {
+public class MapChatActivity extends BaseActivity implements LocationCallBack, MessageFriendLatLogCallBack {
     private MapView mMapView;
     private BaiduMap mBaiduMap;
 
@@ -95,6 +97,11 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack,Me
 
     }
 
+    /**
+     * 自己的位置
+     *
+     * @param location
+     */
     @Override
     public void returnLocation(BDLocation location) {
         MyLocationData locData = new MyLocationData.Builder()
@@ -105,17 +112,24 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack,Me
         mBaiduMap.setMyLocationData(locData);
         LatLng ll = new LatLng(location.getLatitude(),
                 location.getLongitude());
+        Log.i("wanglei","location map1");
+
         if (ll != null) {
+            Log.i("wanglei","location map2");
             MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
             if (u != null)
+                Log.i("wanglei", "location map3");
                 mBaiduMap.animateMapStatus(u);
         }
-
     }
 
+    /**
+     * 获取朋友的位置
+     *
+     * @param bean
+     */
     @Override
-    public void getFriendLatlng(LatLng yourFriendLatLng) {
-        ToastMgr.show("朋友的经纬度："+yourFriendLatLng.toString());
-
+    public void getFriendMessage(MessageBean bean) {
+        ToastMgr.show(bean.toString());
     }
 }
