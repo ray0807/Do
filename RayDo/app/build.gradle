@@ -61,4 +61,5 @@ dependencies {
     compile files('libs/baidumapapi_map_v3_6_1.jar')
     compile files('libs/baidumapapi_base_v3_6_1.jar')
     compile files('libs/autobahn.jar')
+    compile files('libs/baidumapapi_search_v3_6_1.jar')
 }

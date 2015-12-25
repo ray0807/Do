@@ -30,6 +30,7 @@ import com.dobest.ray.corelibs.utils.MethodsCompat;
 import com.dobest.ray.corelibs.utils.ToastMgr;
 import com.dobest.ray.raydo.Interface.LocationCallBack;
 import com.dobest.ray.raydo.Interface.MessageFriendLatLogCallBack;
+import com.dobest.ray.raydo.bean.ChatBean;
 import com.dobest.ray.raydo.bean.MessageBean;
 import com.dobest.ray.raydo.constants.Paths;
 import com.dobest.ray.raydo.utils.CustomCrashHandler;
@@ -329,12 +330,16 @@ public class App extends Application {
             }
             currentLatlng = new LatLng(location.getLatitude(),
                     location.getLongitude());
-            if (isCanStart && currentLatlng != null)
-                sendMessage(new Gson().toJson(currentLatlng));
+            if (isCanStart && currentLatlng != null) {
+                ChatBean chat =new ChatBean();
+                chat.address=location.getCity()+location.getStreet();
+                chat.mLatLng=currentLatlng;
+                sendMessage(chat);
+            }
             //返回我自己的经纬度
             Log.i("wanglei", "location  0 ");
 
-            if (observers != null && i10 / 10 == 0 && observers.size() > 0) {
+            if (observers != null && i10 % 20 == 0 && observers.size() > 0) {
                 for (LocationCallBack callback : observers) {
                     Log.i("wanglei", "观察者不为null ");
                     callback.returnLocation(location);
@@ -434,7 +439,7 @@ public class App extends Application {
         }
     }
 
-    public void sendMessage(String content) {
+    public void sendMessage(ChatBean chat) {
         if (mConnection == null) {
             Log.i("wanglei", "mConnection==null");
             mConnection = new WebSocketConnection();
@@ -444,7 +449,7 @@ public class App extends Application {
             start(name);
             Log.i("wanglei", "mConnection is disconnect");
         } else {
-            mConnection.sendTextMessage(content);
+            mConnection.sendTextMessage(new Gson().toJson(chat));
         }
 
     }
@@ -459,14 +464,10 @@ public class App extends Application {
     }
 
     private void setMessageData(MessageBean msg) {
-        Log.i("wanglei", "sendmessage  0");
         //如果不是自己就不要发送
         if (!msg.User.equals(name)) {
-            Log.i("wanglei", "sendmessage  1");
             if (fMessageCallback != null && fMessageCallback.size() > 0) {
-                Log.i("wanglei", "sendmessage  2");
                 for (MessageFriendLatLogCallBack callback : fMessageCallback) {
-                    Log.i("wanglei", "sendmessage  3");
                     callback.getFriendMessage(msg);
                 }
             }
