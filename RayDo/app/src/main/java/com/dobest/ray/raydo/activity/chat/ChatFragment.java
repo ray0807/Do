@@ -28,6 +28,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private carbon.widget.Button btn_bind;
     /**
      * activity 实例
+     *
+     * 此处实现聊天得在app里面发送message
+     * 不能再次链接websocket
      */
     private Activity mActivity;
 
@@ -99,7 +102,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
     private void start() {
         //测试数据
-        final String wsuri = "ws://114.215.94.193:8088/ws/join?uname=" + et_name.getText().toString().trim();
+        final String wsuri = "ws://114.215.94.193:8087/ws/chat?uname=wanglei&who=ray";
 
         try {
             mConnection.connect(wsuri, new WebSocket.ConnectionHandler() {

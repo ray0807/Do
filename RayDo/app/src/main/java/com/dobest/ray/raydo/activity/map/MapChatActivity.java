@@ -188,13 +188,6 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
 
         FriendLatlng = chatBean.mLatLng;
         if (FriendLatlng != null) {
-
-            if (FriendLatlng != null) {
-                Log.i("wanglei","1111");
-                // 反Geo搜索
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                        .location(FriendLatlng));
-            }
             if (mMarkerA != null) {
                 mMarkerA.remove();
                 mMarkerA = null;
@@ -203,7 +196,7 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
                     .zIndex(9);
             mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
             if (MyLatlng != null)
-                drawLine();
+                drawLine(FriendLatlng,MyLatlng);
 
         }
         if (chatBean.chatContent != null && chatBean.chatContent.length() > 0) {
@@ -219,15 +212,15 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
 
     private String context;
 
-    private void drawLine() {
+    private void drawLine(LatLng you,LatLng me) {
         // 添加普通折线绘制
         if (mPolyline != null) {
             mPolyline.remove();
             mPolyline = null;
         }
         List<LatLng> points = new ArrayList<LatLng>();
-        points.add(MyLatlng);
-        points.add(FriendLatlng);
+        points.add(me);
+        points.add(you);
         OverlayOptions ooPolyline = new PolylineOptions().width(10)
                 .color(0xAAFF0000).points(points);
         mPolyline = (Polyline) mBaiduMap.addOverlay(ooPolyline);

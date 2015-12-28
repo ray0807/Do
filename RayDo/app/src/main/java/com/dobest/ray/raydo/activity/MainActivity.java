@@ -226,9 +226,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(it);
                 break;
             case R.id.ll_chat:
-//                mFragmentController.add(ChatFragment.class,
-//                        fragmentTags[3], null);
-//                toolbar.setTitle("Chat Room");
+                mFragmentController.add(ChatFragment.class,
+                        fragmentTags[3], null);
+                toolbar.setTitle("Chat Room");
                 break;
 
         }
