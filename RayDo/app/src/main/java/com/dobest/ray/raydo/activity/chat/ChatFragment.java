@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dobest.ray.corelibs.utils.ToastMgr;
+import com.dobest.ray.raydo.App;
 import com.dobest.ray.raydo.R;
+import com.dobest.ray.raydo.bean.ChatBean;
+import com.dobest.ray.raydo.bean.MessageBean;
 
 import carbon.widget.Button;
 import de.tavendo.autobahn.WebSocket;
@@ -28,7 +31,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private carbon.widget.Button btn_bind;
     /**
      * activity 实例
-     *
+     * <p/>
      * 此处实现聊天得在app里面发送message
      * 不能再次链接websocket
      */
@@ -95,48 +98,48 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mConnection.isConnected()) {
-            mConnection.disconnect();
-        }
+//        if (mConnection.isConnected()) {
+//            mConnection.disconnect();
+//        }
     }
 
-    private void start() {
-        //测试数据
-        final String wsuri = "ws://114.215.94.193:8087/ws/chat?uname=wanglei&who=ray";
-
-        try {
-            mConnection.connect(wsuri, new WebSocket.ConnectionHandler() {
-                @Override
-                public void onOpen() {
-                    Log.d("wanglei", "Status: Connected to " + wsuri);
-                }
-
-                @Override
-                public void onClose(int i, String s) {
-                    Log.d("wanglei", "Connection lost.");
-                }
-
-                @Override
-                public void onTextMessage(String s) {
-                    Log.d("wanglei", "Got echo: " + s);
-                    ToastMgr.show("收到消息：" + s);
-                }
-
-                @Override
-                public void onRawTextMessage(byte[] bytes) {
-
-                }
-
-                @Override
-                public void onBinaryMessage(byte[] bytes) {
-
-                }
-            });
-        } catch (WebSocketException e) {
-
-            Log.d("wanglei", e.toString());
-        }
-    }
+//    private void start() {
+//        //测试数据
+//        final String wsuri = "ws://114.215.94.193:8087/ws/chat?uname=wanglei&who=ray";
+//
+//        try {
+//            mConnection.connect(wsuri, new WebSocket.ConnectionHandler() {
+//                @Override
+//                public void onOpen() {
+//                    Log.d("wanglei", "Status: Connected to " + wsuri);
+//                }
+//
+//                @Override
+//                public void onClose(int i, String s) {
+//                    Log.d("wanglei", "Connection lost.");
+//                }
+//
+//                @Override
+//                public void onTextMessage(String s) {
+//                    Log.d("wanglei", "Got echo: " + s);
+//                    ToastMgr.show("收到消息：" + s);
+//                }
+//
+//                @Override
+//                public void onRawTextMessage(byte[] bytes) {
+//
+//                }
+//
+//                @Override
+//                public void onBinaryMessage(byte[] bytes) {
+//
+//                }
+//            });
+//        } catch (WebSocketException e) {
+//
+//            Log.d("wanglei", e.toString());
+//        }
+//    }
 
     @Override
     public void onClick(View v) {
@@ -145,7 +148,8 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 String content = et_content.getText().toString();
                 if (content.length() == 0)
                     return;
-                mConnection.sendTextMessage(content);
+//                mConnection.sendTextMessage(content);
+                App.getInstance().sendMessage(new ChatBean("hello", 1, "reyan"));
                 break;
             case R.id.btn_bind:
                 //应该是初始化的时候链接服务器 但是为了测试数据
@@ -153,7 +157,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                     ToastMgr.show("你应该先填写发送人姓名");
                     return;
                 }
-                start();
+//                start();
                 break;
         }
     }

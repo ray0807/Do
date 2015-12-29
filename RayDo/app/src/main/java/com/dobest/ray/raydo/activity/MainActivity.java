@@ -208,10 +208,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         drawer_layout.closeDrawers();
         switch (v.getId()) {
             case R.id.ll_moments:
-                mFragmentController.add(MomentsFragment.class,
-                        fragmentTags[2], null);
-                toolbar.setTitle("朋友圈");
-
+//                mFragmentController.add(MomentsFragment.class,
+//                        fragmentTags[2], null);
+//                toolbar.setTitle("朋友圈");
+                mFragmentController.add(ChatFragment.class,
+                        fragmentTags[3], null);
+                toolbar.setTitle("Chat Room");
                 break;
             case R.id.ll_public_topic:
                 mFragmentController.add(MainFragment.class,

@@ -413,7 +413,6 @@ public class App extends Application {
                     MessageBean msg = gson.fromJson(s, MessageBean.class);
                     Log.i("wanglei", "reveive message： " + s);
                     if (msg != null) {
-                        Log.i("wanglei", "reveive message ！=null ");
                         setMessageData(msg);
                     }
                 }
@@ -441,13 +440,11 @@ public class App extends Application {
 
     public void sendMessage(ChatBean chat) {
         if (mConnection == null) {
-            Log.i("wanglei", "mConnection==null");
             mConnection = new WebSocketConnection();
             start(name);
         }
         if (!mConnection.isConnected()) {
             start(name);
-            Log.i("wanglei", "mConnection is disconnect");
         } else {
             mConnection.sendTextMessage(new Gson().toJson(chat));
         }

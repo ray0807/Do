@@ -19,6 +19,8 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.in.recycler.pro.PtrFrameLayout;
 
+import carbon.widget.LinearLayout;
+
 /**
  * Created by wangl01 on 2015/11/24.
  */
@@ -58,6 +60,7 @@ public class DetailsInfoActivity extends BaseActivity implements PtrLollipopBase
         fb_imageview3 = (SimpleDraweeView) findViewById(R.id.fb_imageview3);
         pn_scroll = (PtrCanSetFreshNestedScrollview) findViewById(R.id.pn_scroll);
         app_bar= (AppBarLayout) findViewById(R.id.app_bar);
+
     }
 
     @Override

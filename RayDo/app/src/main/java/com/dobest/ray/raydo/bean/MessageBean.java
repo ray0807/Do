@@ -9,6 +9,15 @@ public class MessageBean {
     public String User;
     public String Content;
 
+    public MessageBean(int type, int timestamp, String user, String content) {
+        Type = type;
+        Timestamp = timestamp;
+        User = user;
+        Content = content;
+    }
+    public MessageBean() {
+
+    }
     @Override
     public String toString() {
         return "MessageBean{" +
