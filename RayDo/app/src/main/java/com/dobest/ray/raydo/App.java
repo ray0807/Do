@@ -332,8 +332,8 @@ public class App extends Application {
                     location.getLongitude());
             if (isCanStart && currentLatlng != null) {
                 ChatBean chat =new ChatBean();
-                chat.address=location.getCity()+location.getStreet();
-                chat.mLatLng=currentLatlng;
+                chat.Address=location.getCity()+location.getStreet();
+                chat.MLatLng=currentLatlng;
                 sendMessage(chat);
             }
             //返回我自己的经纬度

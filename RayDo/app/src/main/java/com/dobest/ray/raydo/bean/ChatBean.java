@@ -8,27 +8,27 @@ import java.io.Serializable;
  * Created by wangl01 on 2015/12/25.
  */
 public class ChatBean implements Serializable {
-    public String chatContent;
-    public String address;
-    public String to;
-    public LatLng mLatLng;
+    public String ChatContent;
+    public String Address;
+    public String To;
+    public LatLng MLatLng;
 
     public ChatBean(String chatContent, int type, String to) {
-        this.chatContent = chatContent;
-        this.type = type;
-        this.to = to;
+        this.ChatContent = chatContent;
+        this.Type = type;
+        this.To = to;
     }
 
     public ChatBean() {
     }
 
-    public int type;
+    public int Type;
 
     @Override
     public String toString() {
         return "ChatBean{" +
-                "chatContent='" + chatContent + '\'' +
-                ", mLatLng=" + mLatLng +
+                "chatContent='" + ChatContent + '\'' +
+                ", mLatLng=" + MLatLng +
                 '}';
     }
 }
