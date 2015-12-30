@@ -87,7 +87,7 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
                 if (marker == mMarkerA) {
                     ToastMgr.show("跟朋友打招呼");
                     ChatBean chat = new ChatBean();
-                    chat.chatContent = "你的朋友跟你打招呼了";
+                    chat.ChatContent = "你的朋友跟你打招呼了";
                     App.getInstance().sendMessage(chat);
                 }
                 return true;
@@ -186,7 +186,7 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
         if (chatBean == null)
             return;
 
-        FriendLatlng = chatBean.mLatLng;
+        FriendLatlng = chatBean.MLatLng;
         if (FriendLatlng != null) {
             if (mMarkerA != null) {
                 mMarkerA.remove();
@@ -199,8 +199,8 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
                 drawLine(FriendLatlng,MyLatlng);
 
         }
-        if (chatBean.chatContent != null && chatBean.chatContent.length() > 0) {
-            context = chatBean.chatContent;
+        if (chatBean.ChatContent != null && chatBean.ChatContent.length() > 0) {
+            context = chatBean.ChatContent;
             if (FriendLatlng != null) {
                 // 反Geo搜索
                 mSearch.reverseGeoCode(new ReverseGeoCodeOption()

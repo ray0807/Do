@@ -469,6 +469,10 @@ public class App extends Application {
                 }
             }
         }
+        //聊天使用
+        if (msg.Type==3)
+            ToastMgr.show("你的朋友跟你打招呼："+msg.Content);
+
     }
 
     private List<MessageFriendLatLogCallBack> fMessageCallback = new ArrayList<MessageFriendLatLogCallBack>();
