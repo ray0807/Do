@@ -186,7 +186,10 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
         if (chatBean == null)
             return;
 
-        FriendLatlng = chatBean.MLatLng;
+
+        if (chatBean.ChatContent == null || chatBean.ChatContent.length() == 0) {
+            FriendLatlng = chatBean.MLatLng;
+        }
         if (FriendLatlng != null) {
             if (mMarkerA != null) {
                 mMarkerA.remove();
@@ -196,9 +199,12 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
                     .zIndex(9);
             mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
             if (MyLatlng != null)
-                drawLine(FriendLatlng,MyLatlng);
+                drawLine(FriendLatlng, MyLatlng);
 
         }
+
+        //  {"Type":2,"User":"15971470522","Timestamp":1453356990,"Content":"{\"ChatContent\":\"你的朋友跟你打招呼了\",\"Type\":0}"}
+
         if (chatBean.ChatContent != null && chatBean.ChatContent.length() > 0) {
             context = chatBean.ChatContent;
             if (FriendLatlng != null) {
@@ -212,7 +218,7 @@ public class MapChatActivity extends BaseActivity implements LocationCallBack, M
 
     private String context;
 
-    private void drawLine(LatLng you,LatLng me) {
+    private void drawLine(LatLng you, LatLng me) {
         // 添加普通折线绘制
         if (mPolyline != null) {
             mPolyline.remove();
